@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IsTakip.DataAccess.Migrations
 {
     [DbContext(typeof(IsTakipContext))]
-    [Migration("20230312151341_initialCreateDB")]
-    partial class initialCreateDB
+    [Migration("20230312163709_CreateTables")]
+    partial class CreateTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,11 @@ namespace IsTakip.DataAccess.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -101,6 +106,11 @@ namespace IsTakip.DataAccess.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SurName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -122,6 +132,24 @@ namespace IsTakip.DataAccess.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("IsTakip.Entities.Concrete.Immediate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Immediates");
+                });
+
             modelBuilder.Entity("IsTakip.Entities.Concrete.Mission", b =>
                 {
                     b.Property<int>("Id")
@@ -130,12 +158,18 @@ namespace IsTakip.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("AppUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("ntext");
+
+                    b.Property<int>("ImmediateId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -147,7 +181,38 @@ namespace IsTakip.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ImmediateId");
+
                     b.ToTable("Missions");
+                });
+
+            modelBuilder.Entity("IsTakip.Entities.Concrete.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<int>("MissionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MissionId");
+
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -253,6 +318,35 @@ namespace IsTakip.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("IsTakip.Entities.Concrete.Mission", b =>
+                {
+                    b.HasOne("IsTakip.Entities.Concrete.AppUser", "AppUser")
+                        .WithMany("Missions")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("IsTakip.Entities.Concrete.Immediate", "Immediate")
+                        .WithMany("Missions")
+                        .HasForeignKey("ImmediateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Immediate");
+                });
+
+            modelBuilder.Entity("IsTakip.Entities.Concrete.Report", b =>
+                {
+                    b.HasOne("IsTakip.Entities.Concrete.Mission", "Mission")
+                        .WithMany("Reports")
+                        .HasForeignKey("MissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mission");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("IsTakip.Entities.Concrete.AppRole", null)
@@ -302,6 +396,21 @@ namespace IsTakip.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("IsTakip.Entities.Concrete.AppUser", b =>
+                {
+                    b.Navigation("Missions");
+                });
+
+            modelBuilder.Entity("IsTakip.Entities.Concrete.Immediate", b =>
+                {
+                    b.Navigation("Missions");
+                });
+
+            modelBuilder.Entity("IsTakip.Entities.Concrete.Mission", b =>
+                {
+                    b.Navigation("Reports");
                 });
 #pragma warning restore 612, 618
         }

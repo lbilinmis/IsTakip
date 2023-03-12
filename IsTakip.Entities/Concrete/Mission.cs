@@ -15,5 +15,13 @@ namespace IsTakip.Entities.Concrete
         public DateTime CreatedTime { get; set; }
         public bool Statu { get; set; }
 
+        public Nullable<int> AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
+
+        public int ImmediateId { get; set; }
+        public Immediate Immediate { get; set; } // Aciliyet durumu
+
+
+        public List<Report> Reports { get; set; }
     }
 }

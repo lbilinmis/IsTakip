@@ -9,20 +9,14 @@ using System.Threading.Tasks;
 
 namespace IsTakip.DataAccess.Concrete.EntityFramework.Mappings
 {
-    public class MissionMap : IEntityTypeConfiguration<Mission>
+    public class ImmediateMap : IEntityTypeConfiguration<Immediate>
     {
-        public void Configure(EntityTypeBuilder<Mission> builder)
+        public void Configure(EntityTypeBuilder<Immediate> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
 
-            builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Description).HasColumnType("ntext");
-
-            builder
-                .HasOne(x => x.Immediate)
-                .WithMany(x => x.Missions)
-                .HasForeignKey(x => x.ImmediateId);
+            builder.Property(x => x.Title).HasMaxLength(100).IsRequired();
         }
     }
 }

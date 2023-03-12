@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IsTakip.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace IsTakip.Entities.Concrete
 {
-    public class AppUser : IdentityUser<int>
+    public class Immediate : ITable
     {
-        public string Name { get; set; }
-        public string SurName { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
 
         public List<Mission> Missions { get; set; }
     }

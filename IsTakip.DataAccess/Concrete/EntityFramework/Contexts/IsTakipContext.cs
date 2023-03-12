@@ -16,17 +16,23 @@ namespace IsTakip.DataAccess.Concrete.EntityFramework.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data source=IGU-NB-0884;initial catalog=IsTakipDB;user id=sa;password=s123456*-;");
+            optionsBuilder.UseSqlServer(@"Data source=IGU-NB-0884;initial catalog=IsTakipAppDB;user id=sa;password=s123456*-;");
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AppUserMap());
             modelBuilder.ApplyConfiguration(new MissionMap());
+            modelBuilder.ApplyConfiguration(new ImmediateMap());
+            modelBuilder.ApplyConfiguration(new ReportMap());
 
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<Mission> Missions { get; set; }
-     
+        public DbSet<Mission> Missions { get; set; } // Görevler
+        public DbSet<Immediate> Immediates { get; set; } // Aciliyet Durumları
+
+        public DbSet<Report> Reports { get; set; } // Raporlar
+
     }
 }
