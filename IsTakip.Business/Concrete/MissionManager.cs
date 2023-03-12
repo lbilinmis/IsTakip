@@ -5,16 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IsTakip.Business.Concrete
 {
-    internal class WorkingManager : IWorkingService
+    internal class MissionManager : IMissionService
     {
         //private readonly IWorkingService _workingService;
-        private readonly EfWorkingRepositoryDal _workingService;
+        private readonly EfMissionRepositoryDal _workingService;
 
-        public WorkingManager(EfWorkingRepositoryDal workingService)
+        public MissionManager(EfMissionRepositoryDal workingService)
         {
             _workingService = workingService;
         }
@@ -24,30 +23,30 @@ namespace IsTakip.Business.Concrete
         //    _workingService = workingService;
         //}
 
-        public void Add(Working entity)
+        public void Add(Mission entity)
         {
             _workingService.Add(entity);
         }
 
-        public void Delete(Working entity)
+        public void Delete(Mission entity)
         {
             _workingService.Delete(entity);
 
         }
 
-        public List<Working> GetAll()
+        public List<Mission> GetAll()
         {
             return _workingService.GetAll();
 
         }
 
-        public Working GetById(int id)
+        public Mission GetById(int id)
         {
             return _workingService.GetById(id);
 
         }
 
-        public void Update(Working entity)
+        public void Update(Mission entity)
         {
             _workingService.Update(entity);
 

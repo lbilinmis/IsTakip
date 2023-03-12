@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 
 namespace IsTakip.DataAccess.Interfaces
 {
-    public interface IUserDal : IGenericDal<User>
+    public interface IMissionDal:IGenericDal<Mission>
     {
+        //void Add(Working entity);
+        //void Delete(Working entity);
+        //void Update(Working entity);
+        //List<Working> GetAll ();
+        //Working GetById(int id);
+
     }
 }

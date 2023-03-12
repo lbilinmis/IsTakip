@@ -6,12 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IsTakip.DataAccess.Concrete.EntityFramework.Repositories
 {
-    public class EfUserRepositoryDal :EfGenericRepository<User,IsTakipContext>, IUserDal
+    public class EfMissionRepositoryDal : EfGenericRepository<Mission, IsTakipContext>, IMissionDal
     {
-        
     }
 }

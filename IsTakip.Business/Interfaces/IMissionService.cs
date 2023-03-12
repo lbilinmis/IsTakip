@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IsTakip.Business.Interfaces
 {
-    public interface IUserService:IGenericService<User>
+    public interface IMissionService : IGenericService<Mission>
     {
     }
 }

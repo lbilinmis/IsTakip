@@ -1,6 +1,13 @@
+using IsTakip.WebUI.Constraints;
+using IsTakip.WebUI.Middlewares;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Constraints;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//MVC projeye dahil edilir
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -16,12 +23,33 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.CustomStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    // burda canlý url bilgilerini çekip ilgili class yapýsýnda gelenurl bilgisi kontrolu rahat bir þekilde yapýlabilinir
+
+    //app.MapControllerRoute(
+    //name: "programlamaRoute",
+    //pattern: "programlama/{dil}",
+    //defaults: new { controller = "Home", action = "Index" },
+    //constraints: new { dil = new Programlama() }
+    //);
+
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+        //,
+        //constraints: new { id = new IntRouteConstraint() }
+        );
+
+
+});
+
+
 
 app.Run();
