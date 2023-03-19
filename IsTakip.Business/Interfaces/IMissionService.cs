@@ -10,5 +10,6 @@ namespace IsTakip.Business.Interfaces
 {
     public interface IMissionService : IGenericService<Mission>
     {
+        List<Mission> GetAllMissionWithImmediateNotCompleted();
     }
 }

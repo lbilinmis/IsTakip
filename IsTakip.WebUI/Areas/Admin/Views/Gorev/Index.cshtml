@@ -1,0 +1,149 @@
+﻿@model List<ViewModelGorev>
+
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Görev Listesi</h2>
+
+        </div>
+        <div>
+
+            <a asp-action="Create" asp-controller="Gorev" asp-area="Admin" class="btn btn-primary btn-sm rounded">Yeni Görev</a>
+        </div>
+    </div>
+    <div class="card mb-4">
+
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Adı</th>
+                            <th>Durumu</th>
+                            <th>Aciliyet Durumu</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th class="text-end">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.Statu</td>
+                                <td>@item.Immediate.Title</td>
+                                <td>@item.CreatedTime</td>
+                                <td class="text-end">
+                                    <a asp-action="Update" asp-route-id="@item.Id" asp-controller="Gorev" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-edit"></i> Edit </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" asp-controller="Gorev" class="btn btn-sm font-sm rounded btn-danger"> <i class="material-icons md-delete_forever"></i> Delete </a>
+                                 
+                                 
+
+
+                            @*    <a href="" class="btn btn-sm font-sm btn-danger rounded" data-toggle="modal" data-target="#silmeEkrani" data-gorev="@item.Id">
+                                    <i class="material-icons md-delete_forever"></i> Delete
+                                </a>*@
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+
+        </div>
+
+        <!-- card-body end// -->
+    </div>
+    <!-- card end// -->
+
+</section>
+<!-- content-main end// -->
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#silmeEkrani">
+    Launch demo modal
+</button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="silmeEkrani" tabindex="-1" aria-labelledby="silmeEkraniLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="silmeEkraniLabel">Uyarı</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Silmek istediğinize emin misiniz ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hayır Vazgeç</button>
+                <button id="btnDelete" type="button" class="btn btn-primary">Evet Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            //$('#silmeEkrani').on('show.bs.modal', function (event) {
+            //    var button = $(event.relatedTarget) // Button that triggered the modal
+            //    var recipient = button.data('gorev') // Extract info from data-* attributes
+
+            //    console.log(recipient)
+              
+            //});
+
+
+
+            $("#silmeEkrani").on("show.bs.modal", function (event) {
+
+                let tetikleyenElemen = $(event.relatedTarget);
+                let gelenID = tetikleyenElemen.data('gorev');
+
+                debugger;
+
+                $("#btnDelete").click(function () {
+                    $.ajax({
+                        url: "./Gorev/Delete",
+                        type: "GET",
+                        dataType: "json",
+                        contentType: "application/json;charset=utf-8",
+                        data: { id: gelenID },
+                        success: function () {
+                            alert("İşlem gerçekleştirildi");
+                        },
+                        error: function () {
+                            alert(error.statusText);
+                        }
+                    })
+                })
+
+            });
+
+        }
+    </script>
+
+}

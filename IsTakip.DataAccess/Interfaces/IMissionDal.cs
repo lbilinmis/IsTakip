@@ -10,11 +10,6 @@ namespace IsTakip.DataAccess.Interfaces
 {
     public interface IMissionDal:IGenericDal<Mission>
     {
-        //void Add(Working entity);
-        //void Delete(Working entity);
-        //void Update(Working entity);
-        //List<Working> GetAll ();
-        //Working GetById(int id);
-
+        List<Mission> GetAllMissionWithImmediateNotCompleted();
     }
 }

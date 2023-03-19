@@ -1,0 +1,77 @@
+﻿@model List<ViewModelAciliyet>
+
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Aciliyet Listesi</h2>
+
+        </div>
+        <div>
+
+            <a asp-action="Create" asp-controller="Aciliyet" asp-area="Admin" class="btn btn-primary btn-sm rounded">Yeni Aciliyet</a>
+        </div>
+    </div>
+    <div class="card mb-4">
+      
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Tanım</th>
+                            <th class="text-end">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.Id</td>
+                                <td>@item.Title</td>
+                                <td class="text-end">
+                                    <a asp-action="Update" asp-route-id="@item.Id" asp-controller="Aciliyet" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-edit"></i> Edit </a>
+                                    @*<a asp-action="Update" asp-route-id="@item.Id" asp-controller="Aciliyet" class="btn btn-sm font-sm rounded btn-danger"> <i class="material-icons md-delete_forever"></i> Delete </a>*@
+                                    <a asp-action="Delete" asp-route-id="@item.Id" asp-controller="Aciliyet" class="btn btn-sm font-sm btn-danger rounded"> <i class="material-icons md-delete_forever"></i> Delete </a>
+                                </td>
+                            </tr>
+                        }
+                      
+
+                    </tbody>
+                </table>
+                <!-- table-responsive.// -->
+            </div>
+
+        </div>
+
+        <!-- card-body end// -->
+    </div>
+    <!-- card end// -->
+    @*    <div class="pagination-area mt-30 mb-50">
+    <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-start">
+    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+    <li class="page-item"><a class="page-link" href="#">02</a></li>
+    <li class="page-item"><a class="page-link" href="#">03</a></li>
+    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+    <li class="page-item"><a class="page-link" href="#">16</a></li>
+    <li class="page-item">
+    <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+    </li>
+    </ul>
+    </nav>
+    </div>*@
+</section>
+<!-- content-main end// -->
+
+

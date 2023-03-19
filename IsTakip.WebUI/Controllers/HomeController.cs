@@ -1,4 +1,5 @@
-﻿using IsTakip.WebUI.Models;
+﻿using IsTakip.Business.Interfaces;
+using IsTakip.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,27 +7,29 @@ namespace IsTakip.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        IMissionService _missionService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMissionService missionService)
         {
-            _logger = logger;
+            _missionService = missionService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult Privacy()
+              
+        public IActionResult SignIn()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult SignIn(AppUserAddViewModel entity)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
+
+
     }
 }

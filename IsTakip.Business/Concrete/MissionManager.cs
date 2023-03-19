@@ -1,5 +1,6 @@
 ﻿using IsTakip.Business.Interfaces;
 using IsTakip.DataAccess.Concrete.EntityFramework.Repositories;
+using IsTakip.DataAccess.Interfaces;
 using IsTakip.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,14 @@ using System.Text;
 
 namespace IsTakip.Business.Concrete
 {
-    internal class MissionManager : IMissionService
+    public class MissionManager : IMissionService
     {
-        //private readonly IWorkingService _workingService;
-        private readonly EfMissionRepositoryDal _workingService;
+        private readonly IMissionDal _workingService;
 
-        public MissionManager(EfMissionRepositoryDal workingService)
+        public MissionManager(IMissionDal workingService)
         {
             _workingService = workingService;
         }
-
-        //public WorkingManager(IWorkingService workingService)
-        //{
-        //    _workingService = workingService;
-        //}
 
         public void Add(Mission entity)
         {
@@ -38,6 +33,11 @@ namespace IsTakip.Business.Concrete
         {
             return _workingService.GetAll();
 
+        }
+
+        public List<Mission> GetAllMissionWithImmediateNotCompleted()
+        {
+            return _workingService.GetAllMissionWithImmediateNotCompleted();
         }
 
         public Mission GetById(int id)

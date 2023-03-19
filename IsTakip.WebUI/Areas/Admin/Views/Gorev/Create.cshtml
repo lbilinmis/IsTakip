@@ -1,0 +1,63 @@
+﻿@model ViewModelGorevAdd
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="content-main">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Yeni Görev Tanımlama</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <form asp-action="Create" asp-controller="Gorev" method="post">
+
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Name" class="form-label"></label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <input type="text" asp-for="Name" class="form-control" />
+                        </div>
+
+
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="ImmediateId" class="form-label"></label>
+                            <span asp-validation-for="ImmediateId" class="text-danger"></span>
+                            <select type="text" asp-for="ImmediateId" class="form-control" asp-items="@ViewBag.AciliyetListesi">
+                                <option value="-1">Seçiniz</option>
+                            </select>
+                        </div>
+
+@*
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="ImmediateId" class="form-label"></label>
+                            <span asp-validation-for="ImmediateId" class="text-danger"></span>
+                            <select type="text" asp-for="ImmediateId" class="form-control" asp-items="@Model.AciliyetListesi">
+                                <option value="-1">Seçiniz</option>
+                            </select>
+                        </div>*@
+
+
+                        <div class="col-md-12 mb-4">
+                            <label asp-for="Description" class="form-label"></label>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <textarea type="text" asp-for="Description" class="form-control"></textarea>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-md rounded font-sm hover-up">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts{
+
+    <script src="../../root/backendTheme/assets/js/clientside/jqueryValidate/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../../root/backendTheme/assets/js/clientside/queryUnob/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+}
