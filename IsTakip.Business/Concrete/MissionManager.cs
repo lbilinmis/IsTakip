@@ -35,6 +35,11 @@ namespace IsTakip.Business.Concrete
 
         }
 
+        public List<Mission> GetAllMissionWithAllData()
+        {
+            return _workingService.GetAllMissionWithAllData();
+        }
+
         public List<Mission> GetAllMissionWithImmediateNotCompleted()
         {
             return _workingService.GetAllMissionWithImmediateNotCompleted();
@@ -44,6 +49,11 @@ namespace IsTakip.Business.Concrete
         {
             return _workingService.GetById(id);
 
+        }
+
+        public Mission GetMissionById(int id)
+        {
+            return _workingService.GetMissionById(id);
         }
 
         public void Update(Mission entity)

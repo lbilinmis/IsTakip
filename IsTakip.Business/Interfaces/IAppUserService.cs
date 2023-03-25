@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace IsTakip.Business.Interfaces
 {
-    public interface IMissionService : IGenericService<Mission>
+    public interface IAppUserService : IGenericService<AppUser>
     {
-        List<Mission> GetAllMissionWithImmediateNotCompleted();
-        public List<Mission> GetAllMissionWithAllData();
-        public Mission GetMissionById(int id);
+        List<AppUser> GetUserMember();
+        List<AppUser> GetUserMember(out int toplamSayfa, string aranacakKelime, int sayfadakacTaneVeri, int aktifSayfa);
     }
 }
+

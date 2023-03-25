@@ -1,12 +1,16 @@
 ﻿using IsTakip.Business.Interfaces;
 using IsTakip.Entities.Concrete;
 using IsTakip.WebUI.Areas.Admin.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace IsTakip.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
+
     public class GorevController : Controller
     {
         private readonly IMissionService _missionService;

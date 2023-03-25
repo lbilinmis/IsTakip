@@ -1,10 +1,12 @@
 ﻿using IsTakip.Business.Interfaces;
 using IsTakip.Entities.Concrete;
 using IsTakip.WebUI.Areas.Admin.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IsTakip.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles ="Admin")]
     [Area("Admin")]
     public class AciliyetController : Controller
     {

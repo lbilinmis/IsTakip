@@ -1,0 +1,131 @@
+﻿@model ViewModelGorev
+
+@{
+    ViewData["Title"] = "PersonelAta";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Products grid</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div>
+            <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded font-md">Import</a>
+        </div>
+    </div>
+    <header class="card card-body mb-4">
+        <div class="row gx-3">
+           
+            <form asp-action="PersonelAta"  method="get">
+                <div class="col-md-12">
+
+                <div class="col-lg-4 col-md-6 me-auto">
+                    <input type="text" name="aranacak" placeholder="Personel Ara..." class="form-control" />
+                        <button type="submit" class="btn btn-primary btn-sm rounded f-right">Ara</button>
+                  
+                </div>
+
+              
+                </div>
+            </form>
+
+           
+           
+        </div>
+    </header>
+    <!-- card-header end// -->
+    <div class="row">
+        @if (Model != null)
+        {
+
+
+            <div class="card mb-4">
+                <div class="card-header bg-brand-2" style="height: 150px"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl col-lg flex-grow-0" style="flex-basis: 230px">
+                            <div class="img-thumbnail shadow w-100 bg-white position-relative text-center" style="height: 190px; width: 200px; margin-top: -120px">
+                                <img src="assets/imgs/brands/vendor-2.png" class="center-xy img-fluid" alt="Logo Brand">
+                            </div>
+                        </div>
+                        <!--  col.// -->
+                        <div class="col-xl col-lg">
+                            <h3>@Model.Name</h3>
+                            <p>@Model.ImmediateId</p>
+                        </div>
+                        <!--  col.// -->
+
+                    </div>
+                    <!-- card-body.// -->
+                    <hr class="my-4">
+                    <div class="row g-4">
+                        <div class="col-md-12 col-lg-4 col-xl-2">
+                            <article class="box">
+                                <p class="mb-0 text-muted">Oluşturma Tarihi:</p>
+                                <h5 class="text-success">@Model.CreatedTime.ToString("D")</h5>
+                            </article>
+                        </div>
+                        <!--  col.// -->
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <h6>Açıklama</h6>
+                            <p>
+                                @Model.Description
+                            </p>
+                        </div>
+                        <!--  col.// -->
+
+
+                    </div>
+                    <!--  row.// -->
+                </div>
+                <!--  card-body.// -->
+            </div>
+
+
+        }
+        @foreach (var item in (List<ViewModelAppUserMember>)ViewBag.Personeller)
+        {
+            <div class="col-xl-6 col-lg-4 col-md-6">
+                <div class="card card-product-grid">
+                    <a href="#" class="img-wrap"> <img src="~/root/backendTheme/assets/imgs/@item.Picture" alt="@item.Name" /> </a>
+                    <div class="info-wrap">
+                        <div class="dropdown float-end">
+                            <a href="#" class="btn btn-sm btn-brand rounded"> <i class="material-icons md-edit mr-5"></i> </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#"></a>
+                            </div>
+                        </div>
+                        <a href="#" class="title">@item.Name @item.SurName</a>
+                        <div class="price mt-1">@item.Email</div>
+                        <!-- price-wrap.// -->
+                    </div>
+                </div>
+                <!-- card-product  end// -->
+            </div>
+        }
+
+    </div>
+    <!-- row.// -->
+    <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+
+                @for (int i = 1; i <= ViewBag.ToplamSayfa; i++)
+                {
+                    <li class="page-item @(ViewBag.AktifSayfa==i? "active":"") ">
+                        <a class="page-link" asp-action="PersonelAta" asp-route-id="@Model.Id" asp-route-sayfa="@i">@i</a>
+                    </li>
+
+                }
+
+             @*   <li class="page-item">
+                    <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                </li>*@
+            </ul>
+        </nav>
+    </div>
+</section>
+

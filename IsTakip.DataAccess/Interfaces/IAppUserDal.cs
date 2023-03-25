@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace IsTakip.DataAccess.Interfaces
 {
-    public interface IMissionDal:IGenericDal<Mission>
+    public interface IAppUserDal : IGenericDal<AppUser>
     {
-        List<Mission> GetAllMissionWithImmediateNotCompleted();
-        List<Mission> GetAllMissionWithAllData();
-        Mission GetMissionById(int id);
+        List<AppUser> GetUserMember();
+        List<AppUser> GetUserMember(out int toplamSayfa,string aranacakKelime,int sayfadakacTaneVeri, int aktifSayfa=1);
     }
 }

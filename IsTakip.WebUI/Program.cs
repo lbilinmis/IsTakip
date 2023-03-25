@@ -20,6 +20,10 @@ builder.Services.AddScoped<IReportDal, EfReportRepositoryDal>();
 
 builder.Services.AddScoped<IImmediateService, ImmediateManager>();
 builder.Services.AddScoped<IImmediateDal, EfImmediateRepositoryDal>();
+
+
+builder.Services.AddScoped<IAppUserService, AppUserManager>();
+builder.Services.AddScoped<IAppUserDal, EfAppUserRepositoryDal>();
 #endregion
 
 builder.Services.AddDbContext<IsTakipContext>();
@@ -35,6 +39,15 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.Cookie.Name = "IsTakipCookie";
+    opt.Cookie.SameSite = SameSiteMode.Strict;
+    opt.Cookie.HttpOnly = true;
+    opt.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    opt.LoginPath = "/Home/SignIn";
+});
 
 var app = builder.Build();
 
@@ -47,6 +60,9 @@ app.UseStaticFiles();
 app.CustomStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 using (var scope = app.Services.CreateScope())
 {
